@@ -1,55 +1,54 @@
-import { useEffect, useState,setState, state, useDebugValue} from 'react'
+import { useEffect, useState} from 'react'
 import {InputBox} from './components'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 
 
 function App() {
 
-  const [amount, setAmount] = useState("0") //Before amount
-  const [convertedAmount, setConvertedAmount] = useState("0") //After amount
+  const [amount, setAmount] = useState("") //Before amount
+  const [convertedAmount, setConvertedAmount] = useState("") //After amount
 
   const [from, setFrom] = useState("usd") //From Currency type
   const [to, setTo] = useState("inr")  //   To Currency type
 
-  const currecyInfo = useCurrencyInfo(from)
+  const currencyInfo = useCurrencyInfo(from)
    //returns conversion list on the basis of From Currency type
 //   ex-
 //   from = usd
-//     currecyInfo : 
+//     currencyInfo : 
 //     inr: 83.11472546
 //     inv: 0.030222748
 //     iost: 115.21312492
 //     iota: 4.39003968
 
-  const options = Object.keys(currecyInfo) 
-    // const options = currecyInfo;
-//   console.log("this is currencyInfo ",currecyInfo)
+  const options = Object.keys(currencyInfo) 
 
+//   console.log("this is currencyInfo ",currencyInfo)
 //   console.log("this is options ",options)
 
 // converting the amount into another currency amount & setting it up
  const convert = () => {
-  setConvertedAmount(amount * currecyInfo[to])
+  setConvertedAmount(amount * currencyInfo[to])
  }
 
 
 //Swapping {amount, convertedAmount, before & after currency types}
 const swap = () => {
-    console.log( "Before swap: " ,from,to, amount, convertedAmount) ;
+    // console.log( "Before swap: " ,from,to, amount, convertedAmount) ;
     setFrom(to)
     setTo(from) 
     setConvertedAmount(amount)
     setAmount(convertedAmount)
     
   }
-//   const swap = () => {
-//     const { from, to, amount, convertedAmount } = { ...state, from: to, to: from, amount: convertedAmount, convertedAmount: amount };
-//     setState(from, to, amount, convertedAmount);
-//   };
+
+
   
-useEffect(() => {
-    console.log("After state updates:", from, to, amount, convertedAmount);
-  }, [from, to, amount, convertedAmount]); // Include state variables in dependency array
+
+// Just to check after swap state
+// useEffect(() => {
+//     console.log("After state updates:", from, to, amount, convertedAmount);
+//   }, [from, to, amount, convertedAmount]); // Include state variables in dependency array
   
 
 
@@ -76,7 +75,6 @@ useEffect(() => {
                           amount={amount}
                           currencyOptions={options}
                           onCurrencyChange={(currency)=> 
-                        //   setAmount(amount)
                           setFrom(currency)
                           }
                           onAmountChange={(amount) => 
@@ -90,7 +88,7 @@ useEffect(() => {
                           className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
                           onClick={swap}
                       >
-                          swap
+                          SWAP
                       </button>
                   </div>
                   <div className="w-full mt-1 mb-4">
@@ -105,7 +103,7 @@ useEffect(() => {
                           
                       />
                   </div>
-                  {/* {console.log(to)} */}
+
 
                   <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
                       Convert {from.toUpperCase()} to {to.toUpperCase()}

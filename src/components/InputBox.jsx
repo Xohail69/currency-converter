@@ -1,5 +1,4 @@
-import React, {useId} from 'react'
-
+import  {useId} from 'react'
 
 function InputBox({
   label,
@@ -18,7 +17,7 @@ function InputBox({
 
 
 
-// console.log("this is currencyOptions " ,currencyOptions)
+// console.log(currencyOptions)
   return (
       <div className={`bg-white p-3 rounded-lg text-sm flex ${className} `}>
           <div className="w-1/2">
@@ -42,10 +41,9 @@ function InputBox({
                   className="rounded-lg px-1 py-1 bg-gray-100 cursor-pointer outline-none"
                   value={selectCurrency}
                   onChange={(e) => {onCurrencyChange && 
-                  onCurrencyChange(e.target.value)
-                  console.log("event ",e.target.value)}}
+                  onCurrencyChange(e.target.value)}}
 
-                //   disabled={currencyDisable}
+                  disabled={currencyDisable}
 
                   
               >
